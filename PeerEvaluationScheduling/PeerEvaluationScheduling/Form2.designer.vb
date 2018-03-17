@@ -23,6 +23,7 @@ Partial Class Form2
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form2))
         Me.ProfSearch = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.SearchButton = New System.Windows.Forms.Button()
@@ -165,6 +166,7 @@ Partial Class Form2
         Me.Controls.Add(Me.SearchButton)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ProfSearch)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Form2"
         Me.Text = "Evaluator Selection"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

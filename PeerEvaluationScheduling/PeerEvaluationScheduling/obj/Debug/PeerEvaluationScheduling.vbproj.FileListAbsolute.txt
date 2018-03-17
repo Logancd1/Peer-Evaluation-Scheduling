@@ -2,7 +2,6 @@ C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\Pe
 C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.Form1.resources
 C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.Resources.resources
 C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.vbproj.GenerateResource.Cache
-C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.vbprojResolveAssemblyReference.cache
 C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.Form2.resources
 C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.Form3.resources
 C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.Form5.resources
@@ -17,3 +16,8 @@ C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\Pe
 C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.exe
 C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.xml
 C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.pdb
+C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\bin\Debug\PeerEvaluationScheduling.exe.manifest
+C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\bin\Debug\PeerEvaluationScheduling.application
+C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.exe.manifest
+C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.application
+C:\Users\Logan\documents\visual studio 2017\Projects\PeerEvaluationScheduling\PeerEvaluationScheduling\obj\Debug\PeerEvaluationScheduling.DeleteSemesterForm.resources

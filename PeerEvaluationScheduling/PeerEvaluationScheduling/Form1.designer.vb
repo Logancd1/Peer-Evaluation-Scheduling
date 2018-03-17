@@ -22,6 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewMenu = New System.Windows.Forms.ToolStripMenuItem()
@@ -39,6 +40,9 @@ Partial Class Form1
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.fileBrowseButton = New System.Windows.Forms.Button()
         Me.fileName = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.DeleteSemesterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -63,7 +67,7 @@ Partial Class Form1
         '
         Me.NewMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewEvalMenu, Me.newSemesterButton})
         Me.NewMenu.Name = "NewMenu"
-        Me.NewMenu.Size = New System.Drawing.Size(152, 22)
+        Me.NewMenu.Size = New System.Drawing.Size(103, 22)
         Me.NewMenu.Text = "New"
         '
         'NewEvalMenu
@@ -82,7 +86,7 @@ Partial Class Form1
         '
         Me.OpenMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenEvalMenu})
         Me.OpenMenu.Name = "OpenMenu"
-        Me.OpenMenu.Size = New System.Drawing.Size(152, 22)
+        Me.OpenMenu.Size = New System.Drawing.Size(103, 22)
         Me.OpenMenu.Text = "Open"
         '
         'OpenEvalMenu
@@ -93,7 +97,7 @@ Partial Class Form1
         '
         'EditMenu
         '
-        Me.EditMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditEvalListMenu})
+        Me.EditMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditEvalListMenu, Me.DeleteSemesterToolStripMenuItem})
         Me.EditMenu.Name = "EditMenu"
         Me.EditMenu.Size = New System.Drawing.Size(39, 20)
         Me.EditMenu.Text = "Edit"
@@ -102,7 +106,7 @@ Partial Class Form1
         '
         Me.EditEvalListMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditAddEvalMenu, Me.EditRemEvalMenu})
         Me.EditEvalListMenu.Name = "EditEvalListMenu"
-        Me.EditEvalListMenu.Size = New System.Drawing.Size(144, 22)
+        Me.EditEvalListMenu.Size = New System.Drawing.Size(158, 22)
         Me.EditEvalListMenu.Text = "Evaluator List"
         '
         'EditAddEvalMenu
@@ -164,6 +168,31 @@ Partial Class Form1
         Me.fileName.Size = New System.Drawing.Size(247, 20)
         Me.fileName.TabIndex = 5
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(213, 338)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(70, 13)
+        Me.Label1.TabIndex = 6
+        Me.Label1.Text = "User Manual:"
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(279, 338)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(113, 13)
+        Me.LinkLabel1.TabIndex = 7
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "https://goo.gl/1qb9PJ"
+        '
+        'DeleteSemesterToolStripMenuItem
+        '
+        Me.DeleteSemesterToolStripMenuItem.Name = "DeleteSemesterToolStripMenuItem"
+        Me.DeleteSemesterToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.DeleteSemesterToolStripMenuItem.Text = "Delete Semester"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -171,11 +200,14 @@ Partial Class Form1
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ClientSize = New System.Drawing.Size(626, 483)
+        Me.Controls.Add(Me.LinkLabel1)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.fileName)
         Me.Controls.Add(Me.fileBrowseButton)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.SemesterSelector)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "Form1"
         Me.Text = "Evaluator Selection"
@@ -204,4 +236,7 @@ Partial Class Form1
     Friend WithEvents newSemesterButton As ToolStripMenuItem
     Friend WithEvents fileBrowseButton As Button
     Friend WithEvents fileName As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents DeleteSemesterToolStripMenuItem As ToolStripMenuItem
 End Class

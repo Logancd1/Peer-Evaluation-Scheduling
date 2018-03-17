@@ -99,21 +99,22 @@ Public Class Form1
         xlApp.Quit()
         releaseObject(xlApp)
         releaseObject(xlWorkbook)
+        SemesterSelector.SelectedItem = SemesterSelector.Items(0)
     End Sub
 
     Public Function getSemester()
         Return SemesterSelector.SelectedItem.ToString
     End Function
 
-    Public Sub updateSelectedSemester()
-        SemesterSelector.SelectedIndex = SemesterSelector.FindStringExact(Form2.getSemester())
+    Public Sub updateSelectedSemester(semester As String)
+        SemesterSelector.SelectedIndex = SemesterSelector.FindStringExact(semester)
     End Sub
 
     Private Sub fileBrowseButton_Click(sender As Object, e As EventArgs) Handles fileBrowseButton.Click
         Dim fd As OpenFileDialog = New OpenFileDialog()
         Dim strFileName As String
         fd.Title = "Open File Dialog"
-        fd.InitialDirectory = "C:\"
+        fd.InitialDirectory = "\\ptloma.edu\peerevaluationscheduling"   'change to \\ptloma.edu\peerevaluationscheduling
         fd.Filter = "Excel Worksheets 2007(*.xlsx)|*.xlsx"
         fd.FilterIndex = 2
         fd.RestoreDirectory = True
@@ -129,4 +130,21 @@ Public Class Form1
     Public Function getFilePath()
         Return fileName.Text
     End Function
+
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        VisitLink()
+    End Sub
+
+    Private Sub VisitLink()
+        LinkLabel1.LinkVisited = True
+        System.Diagnostics.Process.Start(LinkLabel1.Text)
+    End Sub
+
+    Private Sub DeleteSemesterToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteSemesterToolStripMenuItem.Click
+        If (String.IsNullOrEmpty(fileName.Text)) Then
+            MsgBox("Please make sure you select an Excel file by clicking Browse!")
+        Else
+            DeleteSemesterForm.Show()
+        End If
+    End Sub
 End Class

@@ -15,10 +15,10 @@ Public Class Form3
         Dim xlWorkBook As Excel.Workbook
         Dim TPESheet As Excel.Worksheet
 
-        Dim xlRange As Excel.Range
         Dim lastRow As Integer = 0
+        Dim lastCol As Integer = 0
         Dim keepTrack As Integer = 0
-        'MessageBox.Show(selectedProf)
+        Dim newProfRow As Integer = 0
 
 
 
@@ -28,10 +28,12 @@ Public Class Form3
 
         With TPESheet 'determine last row of colunm
             lastRow = .Range("A" & .Rows.Count).End(Excel.XlDirection.xlUp).Row 'starts from last row on colunm and works up till the first one is found
+            lastCol = .Cells(1, .Columns.Count).End(Excel.XlDirection.xlToLeft).Column
         End With
 
+        newProfRow = lastRow + 1
+
         For row As Integer = 1 To lastRow
-            xlRange = TPESheet.Cells(row, 1)
             Name = TPESheet.Cells(row, 1).Value
             If Name = selectedProf Then 'if entered evaluator found, the form will close
                 MessageBox.Show("Evaluator already added!")
@@ -39,8 +41,19 @@ Public Class Form3
             End If
         Next
         If keepTrack < 1 Then
-            TPESheet.Cells((lastRow) + 1, 1).Value = selectedProf 'set the value of this cell to the value of the last row
+            TPESheet.Cells(newProfRow, 1).Value = selectedProf 'set the value of this cell to the value of the last row
+            MessageBox.Show(selectedProf + " has been added to the evaluator list.")
+            For col As Integer = 2 To lastCol
+                If Not String.IsNullOrEmpty(TPESheet.Cells(1, col).Value) Then
+                    If TPESheet.Cells(1, col).Value = Form1.getSemester() Then
+                        TPESheet.Cells(newProfRow, col).Value = "A,0"
+                    Else
+                        TPESheet.Cells(newProfRow, col).Value = "U,0"
+                    End If
+                End If
+            Next
         End If
+
         xlWorkBook.Save() 'save changes
         xlWorkBook.Close()
         xlApp.Quit()
@@ -48,6 +61,8 @@ Public Class Form3
         releaseObject(xlWorkBook)
         releaseObject(TPESheet)
         Form5.CreateList()
+
+        Me.Close()
     End Sub
 
     Private Sub releaseObject(ByVal obj As Object)

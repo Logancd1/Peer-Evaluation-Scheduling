@@ -22,6 +22,7 @@ Partial Class Form3
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form3))
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.addEval = New System.Windows.Forms.Label()
         Me.evalName = New System.Windows.Forms.TextBox()
@@ -75,6 +76,7 @@ Partial Class Form3
         Me.Controls.Add(Me.evalName)
         Me.Controls.Add(Me.addEval)
         Me.Controls.Add(Me.PictureBox1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Form3"
         Me.Text = "Add Evaluator"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

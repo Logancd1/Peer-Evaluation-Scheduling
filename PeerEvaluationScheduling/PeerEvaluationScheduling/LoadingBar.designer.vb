@@ -22,6 +22,7 @@ Partial Class LoadingBar
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(LoadingBar))
         Me.progressBar = New System.Windows.Forms.ProgressBar()
         Me.percentDone = New System.Windows.Forms.Label()
         Me.SuspendLayout()
@@ -49,6 +50,7 @@ Partial Class LoadingBar
         Me.ClientSize = New System.Drawing.Size(284, 70)
         Me.Controls.Add(Me.percentDone)
         Me.Controls.Add(Me.progressBar)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "LoadingBar"
         Me.Text = "Loading..."
         Me.ResumeLayout(False)

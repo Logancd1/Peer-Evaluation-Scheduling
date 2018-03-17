@@ -22,6 +22,7 @@ Partial Class PendingEvaluations
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PendingEvaluations))
         Me.openButton = New System.Windows.Forms.Button()
         Me.evaluationList = New System.Windows.Forms.ComboBox()
         Me.tpe1 = New System.Windows.Forms.RadioButton()
@@ -118,6 +119,7 @@ Partial Class PendingEvaluations
         Me.Controls.Add(Me.tpe1)
         Me.Controls.Add(Me.evaluationList)
         Me.Controls.Add(Me.openButton)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "PendingEvaluations"
         Me.Text = "PendingEvaluations"
         Me.ResumeLayout(False)

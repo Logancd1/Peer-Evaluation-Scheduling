@@ -25,6 +25,8 @@ Public Class PastEvaluations
 
         evalName.Visible = True
 
+        cancelEval.Visible = True
+
         xlWorkbook.Close()
         xlApp.Quit()
         releaseObject(xlWorkbook)
@@ -38,6 +40,7 @@ Public Class PastEvaluations
 
     Private Sub PastEvaluations_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         updateForm()
+        cancelEval.Visible = False
         updateSemesters()
     End Sub
 
@@ -123,6 +126,90 @@ Public Class PastEvaluations
     End Sub
 
     Private Sub semesterList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles semesterList.SelectedIndexChanged
-
+        Form1.updateSelectedSemester(semesterList.SelectedItem)
     End Sub
+
+    Private Sub cancelEval_Click(sender As Object, e As EventArgs) Handles cancelEval.Click
+        Dim xlApp As Excel.Application
+        Dim xlWorkbook As Excel.Workbook
+        Dim evalSheet As Excel.Worksheet
+        Dim evaluatorSheet As Excel.Worksheet
+        Dim lastRow As Integer = 0
+        Dim lastCol As Integer = 0
+        Dim lastRow2 As Integer = 0
+        Dim evalSemester As String = Form1.getSemester()
+        Dim semColumn As Integer
+        Dim evalCount As String
+        Dim counter As Integer
+        Dim statement As String = "Are you sure you want to cancel this evaluation?"
+        Dim question As DialogResult = MessageBox.Show(statement, "Confirmation", MessageBoxButtons.YesNo)
+        If question = DialogResult.Yes Then
+            xlApp = New Excel.Application
+            xlWorkbook = xlApp.Workbooks.Open(Form1.getFilePath(), ReadOnly:=False)
+            evalSheet = xlWorkbook.Worksheets("EvaluationList")
+            evaluatorSheet = xlWorkbook.Worksheets("EvaluatorList")
+
+            With evalSheet 'determine last row of evalSheet
+                lastRow = .Range("A" & .Rows.Count).End(Excel.XlDirection.xlUp).Row 'starts from last row on colunm and works up till the first one is found
+            End With
+
+            With evaluatorSheet 'determine last row and column
+                lastCol = .Cells(1, .Columns.Count).End(Excel.XlDirection.xlToLeft).Column
+                lastRow2 = .Range("A" & .Rows.Count).End(Excel.XlDirection.xlUp).Row
+            End With
+
+            'checks pastEvaluations sheet for evaluators name, then for professors name, then semester, if match delete entire row
+            For row As Integer = 1 To lastRow
+                If (evalSheet.Cells(row, 3).Value = evalName.Text) Then
+                    If (evalSheet.Cells(row, 2).Value = profList.SelectedItem) Then
+                        If (evalSheet.Cells(row, 1).Value = semesterList.SelectedItem) Then
+                            evalSheet.Rows(row).Delete()
+                            MsgBox("Evaluation canceled")
+                        End If
+
+                    End If
+                End If
+            Next
+
+            For column As Integer = 1 To lastCol
+                If evaluatorSheet.Cells(1, column).Value = evalSemester Then
+                    semColumn = column
+                    GoTo nextcommand
+                End If
+            Next
+            'update availability status for evaluator by subtracting 1 and switching back to A if wasn't already
+nextcommand:
+            For row As Integer = 2 To lastRow2
+                If evaluatorSheet.Cells(row, 1).Value = evalName.Text Then
+                    counter = Convert.ToInt32(getEvalCount(evaluatorSheet.Cells(row, semColumn).Value)) - 1
+                    evalCount = counter.ToString
+                    evaluatorSheet.Cells(row, semColumn).Value = "A," + evalCount
+                End If
+            Next
+
+            xlWorkbook.Save()
+            xlWorkbook.Close()
+            xlApp.Quit()
+            releaseObject(xlWorkbook)
+            releaseObject(xlApp)
+            releaseObject(evalSheet)
+
+            'disable cancel button to prevent clicking it twice & update dropdown list 
+            cancelEval.Visible = False
+            evalName.Visible = False
+            profList.Items.Clear()
+            updateForm()
+        Else
+            MsgBox("Cancellation cancelled... No evaluation is being cancelled.")
+        End If
+    End Sub
+
+    Private Function getEvalCount(data As String)
+        Dim splitData() As String
+        Dim count As String
+        splitData = Split(data, ",")
+        count = splitData(1)
+        Return count
+    End Function
+
 End Class

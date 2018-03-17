@@ -42,6 +42,8 @@ Public Class PendingEvaluations
         tpe4.Visible = False
         selectButton.Visible = False
 
+        openButton.Enabled = False
+
         xlWorkbook.Close()
         xlApp.Quit()
         releaseObject(xlWorkbook)
@@ -103,7 +105,7 @@ Public Class PendingEvaluations
     End Sub
 
     Private Sub evaluationList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles evaluationList.SelectedIndexChanged
-
+        openButton.Enabled = True
     End Sub
 
     Private Sub releaseObject(ByVal obj As Object)
@@ -154,6 +156,8 @@ Public Class PendingEvaluations
         Dim lastRow2 As Integer = 0
         Dim evalSemester As String = Form1.getSemester()
         Dim semColumn As Integer
+        Dim evalCount As String
+        Dim counter As Integer
 
         xlApp = New Excel.Application
         xlWorkbook = xlApp.Workbooks.Open(Form1.getFilePath(), ReadOnly:=False)
@@ -179,16 +183,18 @@ Public Class PendingEvaluations
 
 nextcommand:
 
-        For row As Integer = 1 To lastRow2
+        For row As Integer = 2 To lastRow2
             If evaluatorSheet.Cells(row, 1).Value = unselectedEvaluator1 Or evaluatorSheet.Cells(row, 1).Value = unselectedEvaluator2 Or evaluatorSheet.Cells(row, 1).Value = unselectedEvaluator3 Then
-                evaluatorSheet.Cells(row, semColumn).Value = "A"
+                evalCount = getEvalCount(evaluatorSheet.Cells(row, semColumn).Value)
+                evaluatorSheet.Cells(row, semColumn).Value = "A," + evalCount
             End If
             If evaluatorSheet.Cells(row, 1).Value = selectedEvaluator Then
-                evaluatorSheet.Cells(row, 2).Value = (Convert.ToInt32(evaluatorSheet.Cells(row, 2).Value) + 1).ToString
-                If Convert.ToInt32(evaluatorSheet.Cells(row, 2).Value) > 1 Then
-                    evaluatorSheet.Cells(row, semColumn).Value = "U"
+                counter = Convert.ToInt32(getEvalCount(evaluatorSheet.Cells(row, semColumn).Value)) + 1
+                evalCount = counter.ToString
+                If Convert.ToInt32(evalCount) > 1 Then
+                    evaluatorSheet.Cells(row, semColumn).Value = "U," + evalCount
                 Else
-                    evaluatorSheet.Cells(row, semColumn).Value = "A"
+                    evaluatorSheet.Cells(row, semColumn).Value = "A," + evalCount
                 End If
             End If
         Next
@@ -211,6 +217,24 @@ nextcommand:
         releaseObject(evalSheet)
         releaseObject(pendEvalSheet)
     End Sub
+
+    Private Function getStatus(data As String)
+        Dim splitData() As String
+        Dim status As String
+
+        splitData = Split(data, ",")
+        status = splitData(0)
+        Return status
+    End Function
+
+    Private Function getEvalCount(data As String)
+        Dim splitData() As String
+        Dim count As String
+
+        splitData = Split(data, ",")
+        count = splitData(1)
+        Return count
+    End Function
 
     Private Sub tpe1_CheckedChanged(sender As Object, e As EventArgs) Handles tpe1.CheckedChanged
 

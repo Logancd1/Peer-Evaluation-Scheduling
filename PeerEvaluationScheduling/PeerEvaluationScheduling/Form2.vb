@@ -8,10 +8,11 @@ Public Class Form2
     Dim TPEList As New ArrayList
 
     Private Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click
-        If Not String.IsNullOrEmpty(availabilityCount.SelectedItem.ToString) And Not String.IsNullOrEmpty(evalNameMenu.SelectedItem.ToString) Then
+        If Not String.IsNullOrEmpty(availabilityCount.SelectedItem) And Not String.IsNullOrEmpty(evalNameMenu.SelectedItem) Then
             Dim selected As String = evalNameMenu.Text 'captures entered evaluatee
             EvalList.Items.Clear()
             SearchProf(selected)
+            SaveButton.Enabled = True
         Else
             MsgBox("Please select a professor and an availability count!")
         End If
@@ -31,6 +32,7 @@ Public Class Form2
         Dim nameProf As String
         Dim semCol As Integer
         Dim lastCol As Integer = 0
+        Dim evalCount As String
 
         xlApp = New Excel.Application
         xlWorkBook = xlApp.Workbooks.Open(Form1.getFilePath(), ReadOnly:=False) 'Open Excel file
@@ -69,14 +71,18 @@ Public Class Form2
 
 foundsem:
 
-            For r As Integer = 1 To lastRow
+            For r As Integer = 2 To lastRow
                 nameProf = EvaluatorList.Cells(r, 1).Value
+                'MessageBox.Show(EvaluatorList.Cells(r, semCol).Value + " and this is located in row,col: " + r.ToString + "," + semCol.ToString)
+                evalCount = getEvalCount(EvaluatorList.Cells(r, semCol).Value)
                 ' Status = EvaluatorList.Cells(r, 2).Value
                 If nameProf = word Then 'if selected evaluator found go in here
-                    EvaluatorList.Cells(r, semCol).Value = "P"
+                    EvaluatorList.Cells(r, semCol).Value = "P," + evalCount
                 End If
             Next
         Next
+
+        SaveButton.Enabled = False 'DISABLES BUTTON
 
         xlWorkBook.Save() 'save changes
         MsgBox("Changes have been saved")
@@ -140,6 +146,8 @@ foundsem:
             availabilityCount.Items.Add((i + 1).ToString)
         Next
 
+        LoadingBar.increaseProgress(LoadingBar.getMax() - LoadingBar.getValue())
+
         xlWorkBook.Close()
         xlApp.Quit()
         releaseObject(xlApp)
@@ -152,6 +160,9 @@ foundsem:
         updateSemesters()
         LoadingBar.Show()
         LoadingBar.setMaximum(1550)
+
+        SaveButton.Enabled = False 'DISABLE BUTTON
+
         Dim xlApp As Excel.Application
         Dim xlWorkBook As Excel.Workbook
         Dim profList As Excel.Worksheet
@@ -187,6 +198,8 @@ foundsem:
         For Each name In profNames
             evalNameMenu.Items.Add(name)
         Next
+
+        LoadingBar.increaseProgress(LoadingBar.getMax() - LoadingBar.getValue())
 
         xlWorkBook.Close()
         xlApp.Quit()
@@ -229,6 +242,7 @@ foundsem:
 
     Public Sub updateSelectedSemester()
         semesterList.SelectedIndex = semesterList.FindStringExact(Form1.getSemester())
+        Form1.updateSelectedSemester(semesterList.SelectedItem)
     End Sub
 
     Public Sub randomize(list As ArrayList)
@@ -292,9 +306,9 @@ foundsem:
 
 foundsemestercolumn:
 
-        For row As Integer = 1 To lastRow2
+        For row As Integer = 2 To lastRow2
             evaluatorName = evaluatorSheet.Cells(row, 1).Value
-            If evaluatorSheet.Cells(row, semCol).Value = "A" Then
+            If getStatus(evaluatorSheet.Cells(row, semCol).Value) = "A" Then
                 evaluatorList.Add(evaluatorName)
             End If
         Next
@@ -481,11 +495,33 @@ done:
         End If
     End Function
 
+    Private Function getStatus(data As String)
+        Dim splitData() As String
+        Dim status As String
+
+        splitData = Split(data, ",")
+        status = splitData(0)
+        Return status
+    End Function
+
+    Private Function getEvalCount(data As String)
+        Dim splitData() As String
+        Dim count As String
+
+        splitData = Split(data, ",")
+        count = splitData(1)
+        Return count
+    End Function
+
     Private Sub availabilityTooltip_Popup(sender As Object, e As PopupEventArgs) Handles availabilityTooltip.Popup
 
     End Sub
 
     Private Sub availabilityCount_SelectedIndexChanged(sender As Object, e As EventArgs) Handles availabilityCount.SelectedIndexChanged
 
+    End Sub
+
+    Private Sub semesterList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles semesterList.SelectedIndexChanged
+        Form1.updateSelectedSemester(semesterList.SelectedItem)
     End Sub
 End Class
