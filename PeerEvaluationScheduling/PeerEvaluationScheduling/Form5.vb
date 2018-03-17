@@ -166,7 +166,7 @@ Partial Class Form5
         TPESheet = xlWorkBook.Worksheets("EvaluatorList") 'Open list of TPE Sheet
 
         With TPESheet 'determine last row of colunm
-            lastRow = .Range("A" & .Rows.Count).End(Excel.XlDirection.xlUp).Row 'starts from last row on colunm and works up till the first one is found
+            lastRow = .Range("A" & .Rows.Count).End(Excel.XlDirection.xlUp).Row 'starts from last row on colunm and works up till the first row with content is found
         End With
 
         For row As Integer = 1 To lastRow
