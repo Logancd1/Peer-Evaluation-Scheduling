@@ -129,7 +129,7 @@ Public Class Form1
         Dim fd As OpenFileDialog = New OpenFileDialog()
         Dim strFileName As String
         fd.Title = "Open File Dialog"
-        fd.InitialDirectory = "\\ptloma.edu\peerevaluationscheduling"   'change to \\ptloma.edu\peerevaluationscheduling
+        fd.InitialDirectory = "C:\"   '\\ptloma.edu\peerevaluationscheduling
         fd.Filter = "Excel Worksheets 2007(*.xlsx)|*.xlsx"
         fd.FilterIndex = 2
         fd.RestoreDirectory = True
